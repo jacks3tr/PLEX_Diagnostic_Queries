@@ -1,0 +1,13 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+
+SELECT
+i.item_no,
+i.description,
+i.account_no,
+i.item_key
+FROM purchasing_v_item as i
+
+WHERE i.account_no = ''
+
+Order by i.item_no
