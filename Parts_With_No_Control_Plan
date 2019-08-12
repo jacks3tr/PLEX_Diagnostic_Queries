@@ -1,0 +1,19 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+select
+p.part_no,
+p.revision,
+p.part_status,
+p.name,
+cp.control_plan_no
+
+from part_v_part as p
+join part_v_part_status as ps
+on ps.part_status = p.part_status
+left join quality_v_control_plan as cp
+on p.part_key = cp.part_key
+
+where ps.active = 1
+and cp.control_plan_key is null
+
+order by p.part_no
