@@ -1,3 +1,27 @@
+--***Parameters are required to run this query. Pay special attention to @BOM_or_Routing, and @Begin_Date/@End_Date***
+/* 
+Populated example:
+@Begin_Date DATETIME = '1/1/2020',
+@End_Date DATETIME = '1/1/2021',
+
+Paste the following text under parementers in the properties tab of SDE:
+@PCN INT,
+@Begin_Date DATETIME = NULL,
+@End_Date DATETIME = NULL,
+@Part_No VARCHAR (50) = NULL,
+@Building_Key INT = NULL,
+@Incl_Jobs BIT = 0,
+@BOM_or_Routing SMALLINT = 0,
+/*
+0 = all records
+1 = BOM only
+2 = Routing only
+*/
+@Planning_Group_Key_List VARCHAR (MAX) = NULL,
+@Product_Type VARCHAR (50) = NULL,
+@Part_Type VARCHAR (50) = NULL
+*/
+
 SET NOCOUNT ON
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
 Set @PCN = PARSENAME(SUSER_NAME(),2)
