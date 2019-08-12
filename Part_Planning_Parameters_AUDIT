@@ -1,0 +1,26 @@
+Select
+Part_No+' '+Revision as 'Part-Rev',
+Name,
+Part_Type,
+p.Part_Status,
+Finished_Part_Buffer,
+Lead_time,
+Standard_Job_quantity,
+minimum_job_quantity,
+Release_Auto_Create,
+Minimum_order_quantity,
+Standard_order_quantity,
+last_name+', '+First_name as 'Updated By',
+Updated_Date
+
+from part_v_part as p
+join part_v_Part_Planning_Parameters	as pp
+ON pp.part_key = p.part_key
+
+join Plexus_Control_v_Plexus_User as pu
+on p.Updated_By = pu.plexus_user_no
+
+join part_v_part_status as ps
+on ps.part_status = p.part_status
+
+where ps.active = 1
