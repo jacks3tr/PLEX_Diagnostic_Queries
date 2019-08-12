@@ -1,0 +1,28 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+
+Select 
+p.part_no,
+p.name,
+po.operation_no,
+o.operation_code,
+apw.part_operation_key as 'Approved Workcenter',
+aps.part_operation_key as 'Approved Supplier'
+
+
+from part_v_part as p
+join part_v_part_operation as po
+on p.part_key = po.part_key
+join part_v_operation as o
+on po.operation_key = o.operation_key
+left join part_v_approved_workcenter as apw
+on po.part_operation_key = apw.part_operation_key
+left join part_v_approved_supplier as aps
+on po.part_operation_key = aps.part_operation_key
+
+
+where (aps.part_operation_key is null and apw.part_operation_key is null)
+--and o.operation_code != 'Scrap (WIP)'
+and p.part_no != 'MATL'
+
+order by p.part_no
