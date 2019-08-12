@@ -1,0 +1,27 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+
+select distinct
+p.part_no,
+p.name,
+po.operation_no,
+o.operation_code,
+b.component_part_key as 'Component Part'
+
+from part_v_part as p
+join part_v_part_operation as po
+on p.part_key = po.part_key
+join part_v_operation as o
+on po.operation_key = o.operation_key
+join part_v_inventory_type as it
+on o.inventory_type = it.inventory_type
+left join part_v_bom as b
+on po.part_operation_key = b.part_operation_key
+
+
+where 
+(it.inventory_type = 'Finished Goods'
+or it.inventory_type = 'WIP')
+and (b.component_part_key is null and b.purchasing_item_key is null)
+and o.operation_code != 'Rework'
+and po.operation_no = '10'
