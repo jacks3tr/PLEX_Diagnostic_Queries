@@ -1,0 +1,34 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+
+select
+S.supplier_code as 'Supplier Code',
+S.name as 'Supplier Name',
+S.Supplier_Type as 'Supplier Type',
+sp.Default_Ship_To as 'Default Ship to',
+s.terms as 'Default Payment Terms',
+--c.currency_code as 'Default Currency Code',
+sp.Default_Currency_Code as 'Default Currency Code',
+POT.PO_Type as 'Default PO Type',
+i.inco_terms as 'Default INCO Term',
+A.Account_No as 'Default AP Account',
+s.supplier_no
+
+from Common_v_supplier as s
+left join common_v_supplier_purchasing as sp
+on s.supplier_no = sp.supplier_no
+left join common_v_currency as c
+on sp.currency_key = c.currency_key
+left join purchasing_v_po_type as pot
+on sp.default_po_type_key = pot.po_type_key
+left join common_v_supplier_accounting as sa
+on s.supplier_no = sa.supplier_no
+left join accounting_v_account as a
+on sa.AP_Credit_Account_Key = a.account_key
+Left Join sales_v_inco_terms as i
+on i.inco_terms_key = sp.inco_terms_key
+
+where s.supplier_code like '%'
+and S.Supplier_Type <> 'Carrier'
+
+order by s.Supplier_code
