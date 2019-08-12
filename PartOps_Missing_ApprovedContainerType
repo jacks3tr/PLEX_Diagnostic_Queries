@@ -1,0 +1,30 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+
+select
+p.part_no,
+p.revision, 
+p.name, 
+po.operation_no, 
+o.operation_code, 
+ct.container_type, 
+p.part_key, 
+po.part_operation_key,p.part_status,p.part_type
+
+from part_v_part as p
+join part_v_part_operation as po
+on p.part_key = po.part_key
+join part_v_operation as o
+on po.operation_key = o.operation_key
+join part_v_part_status as ps
+on p.part_status = ps.part_status
+left join part_v_part_operation_approved_container as poac
+on po.part_operation_key = poac.part_operation_key
+left join part_v_container_type as ct
+on poac.container_type_key = ct.container_type_key
+join part_v_part_op_type as pot
+on po.part_op_type_key = pot.part_op_type_key
+
+
+where ps.active = 1 and ct.container_type is null and  pot.cell = 0 and p.part_key != 0 AND (p.part_status = 'Production' or p.part_status = 'Spare Part' or p.part_status = 'Pre-Production')
+order by p.part_no, po.operation_no
