@@ -1,0 +1,21 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
+
+SELECT
+s.Supplier_Code,
+s.Name,
+s.Address,
+s.City,
+s.State,
+s.Zip,
+s.Remit_Address,
+s.Remit_City,
+s.Remit_State,
+s.Remit_Zip,
+s.supplier_no
+
+from common_v_supplier as s
+
+
+where (s.address = '' and s.remit_address = '')
+or (s.address = '' and s.remit_address !='')
