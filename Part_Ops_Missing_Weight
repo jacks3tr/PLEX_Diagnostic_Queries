@@ -21,8 +21,8 @@ join part_v_part_op_type as pot
 on po.part_op_type_key = pot.part_op_type_key
 
 
-where (o.inventory_type = 'Finished Goods' or o.inventory_type = 'WIP') 
-and ps.active = 1 
+where ps.active = 1 
 and (pot.rework = 0 and pot.cell = 0) 
+-- and (o.inventory_type = 'Finished Goods' or o.inventory_type = 'WIP') 
 and po.net_weight = 0
 order by p.part_no, po.operation_no
