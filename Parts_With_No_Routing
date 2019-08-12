@@ -11,9 +11,9 @@ o.operation_code
 from part_v_part as p
 join part_v_part_status as ps
 on ps.part_status = p.part_status
-join part_v_part_operation as po
+left join part_v_part_operation as po
 on p.part_key = po.part_key
-join part_v_operation as o
+left join part_v_operation as o
 on po.operation_key = o.operation_key
 
 where ps.active = 1
