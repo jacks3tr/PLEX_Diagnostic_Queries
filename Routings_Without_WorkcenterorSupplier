@@ -11,6 +11,8 @@ aps.part_operation_key as 'Approved Supplier'
 
 
 from part_v_part as p
+join part_v_part_status as ps
+on ps.part_status = p.part_status
 join part_v_part_operation as po
 on p.part_key = po.part_key
 join part_v_operation as o
@@ -21,8 +23,9 @@ left join part_v_approved_supplier as aps
 on po.part_operation_key = aps.part_operation_key
 
 
-where (aps.part_operation_key is null and apw.part_operation_key is null)
---and o.operation_code != 'Scrap (WIP)'
+where ps.active = 1
+and (aps.part_operation_key is null and apw.part_operation_key is null)
+--and o.operation_code != 'Enter any op code if needed'
 and p.part_no != 'MATL'
 
 order by p.part_no
