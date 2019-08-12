@@ -1,0 +1,16 @@
+Select 
+s.name as 'Supplier Name', 
+api.invoice_no as 'Invoice Number', 
+api.amount as 'Invoice Amount',
+api.invoice_date as 'Invoice Date', 
+api.period as 'Invoice Period', 
+r.receive_date as 'Receipt Date',
+a.account_name as 'Account Name'
+
+from accounting_V_ap_invoice_dist apid
+join accounting_v_ap_invoice api on api.invoice_link = apid.invoice_link
+join purchasing_v_receipt r on r.receipt_key = apid.receipt_key
+join common_v_supplier s on s.supplier_no = api.Supplier_no
+join accounting_v_account a on apid.account_no = a.account_no
+
+where api.period = '201804' -- POPULATE THIS WITH THE PERIOD 'YYYYMM'
