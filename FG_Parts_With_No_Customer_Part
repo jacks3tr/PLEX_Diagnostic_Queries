@@ -11,13 +11,13 @@ cp.customer_part_no
 
 
 FROM part_v_part as p
-JOIN part_v_part_operation as po
+LEFT JOIN part_v_part_operation as po
 on p.part_key = po.part_key
-JOIN part_v_operation as o
+LEFT JOIN part_v_operation as o
 on po.operation_key = o.operation_key
-JOIN part_v_customer_part as cp
+LEFT JOIN part_v_customer_part as cp
 on p.part_key = cp.part_key
-JOIN part_v_part_status as ps
+join part_v_part_status as ps
 on p.part_status = ps.part_status
 
 WHERE o.inventory_type = 'Finished Goods' and cp.part_key is null
