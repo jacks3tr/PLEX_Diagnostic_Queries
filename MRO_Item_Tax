@@ -1,0 +1,10 @@
+Select 
+Item_No,	
+Description,
+Brief_Description, 
+Item_Tax_Code
+
+From Purchasing_v_Item as I
+
+Left Join Purchasing_v_Item_tax as it
+On I.Item_Tax_Key = it.Item_Tax_Key
