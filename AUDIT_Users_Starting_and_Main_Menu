@@ -1,0 +1,13 @@
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+
+select U.First_Name as "First",U.Last_Name as "Last",L.Node_Name as "Main Menu Node",C.Starting_Menu_Node as "Starting Menu Key"
+from Plexus_Control_v_Plexus_User as U
+join Plexus_Control_v_User_customer as C
+on U.Plexus_user_no = C.Plexus_user_no
+Left outer join Plexus_Control_v_Menu_Node as M
+on C.Starting_Menu_Node = M.Menu_Node_No
+Left Outer Join Plexus_Control_v_Menu_Node_Language as L
+on L.Menu_Node_No = c.Main_Menu_Node and L.Language_key = 1
+
+order by U.Last_name
