@@ -8,3 +8,5 @@ From Purchasing_v_Item as I
 
 Left Join Purchasing_v_Item_tax as it
 On I.Item_Tax_Key = it.Item_Tax_Key
+
+Where I.active = 1
