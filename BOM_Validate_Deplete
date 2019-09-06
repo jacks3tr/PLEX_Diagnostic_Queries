@@ -1,0 +1,10 @@
+Select 
+p.part_no,p.name,
+p2.part_no,p2.name
+,Active,	Validate,	Auto_Deplete	
+FROM Part_v_BOM as BOM 
+Join part_v_part as P
+on p.part_key = bom.part_key
+Join part_v_part as P2
+on p2.part_key = bom.component_part_key
+where BOM.Active = 1
