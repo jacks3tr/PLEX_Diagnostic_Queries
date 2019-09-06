@@ -1,0 +1,19 @@
+Select 
+P.Part_No,
+P.name,
+p.part_type,
+it.Item_Tax_Code
+
+From Part_v_Part as p 
+
+Join Part_v_part_status as ps
+On ps.part_status = p.part_status
+
+Left Join Part_v_Part_attributes as pa
+On p.part_key = pa.part_key
+
+Left Join Purchasing_v_Item_tax as it
+On pa.Item_Tax_Key = it.Item_Tax_Key
+
+
+Where ps.active = 1
